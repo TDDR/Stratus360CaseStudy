@@ -1,5 +1,5 @@
 import './App.css';
-import ComicStrip from './components/comicStrip';
+import ComicStrip from './components/ComicStrip';
 
 function App() {
   return (

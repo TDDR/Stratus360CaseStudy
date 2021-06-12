@@ -1,31 +1,24 @@
 import { useState, useEffect } from 'react';
 
-const xkcdURL = 'https://xkcd.com/info.0.json';
-
-const useXkcdApi = () => {
+const useXkcdApi = (url) => {
   const [comic, setComic] = useState(null);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchComic = async () => {
       try {
-        const response = await fetch(xkcdURL, {
-            mode:'no-cors'
-        });
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('xkcd API response not OK');
         }
-        console.log("BYE");
-
         const comics = await response.json();
         setComic(comics);
-
       } catch (err) {
         setError(err);
       }
     };
     fetchComic();
-  }, []);
+  }, [url]);
 
   return { comic, error };
 };
