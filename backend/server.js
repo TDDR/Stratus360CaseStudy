@@ -10,6 +10,11 @@ const corsConfig = {
     origin: "http://localhost:3000"
 };
 
+/**Landing page for server*/
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "/index.html"));
+});
+  
 /**GET request for the latest comic*/
 app.get('/getComic', cors(corsConfig), async (req, res) => {
     const url = 'https://xkcd.com/info.0.json';
@@ -33,7 +38,7 @@ app.get('/getComic/:num', cors(corsConfig), async (req, res) => {
 });
 
 /**Start listening for connections*/
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-    console.log(`Server listening at http://localhost:${PORT}`);
+    console.log(`Server listening at PORT: ${PORT}`);
 });
