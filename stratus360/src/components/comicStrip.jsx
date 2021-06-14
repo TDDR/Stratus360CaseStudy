@@ -4,10 +4,10 @@ import useXkcdApi from './ApiHook';
 import './style.css'
 
 const ComicStrip = () => {
-    let xkcdURL = 'http://localhost:8080/getComic/';
+    let xkcdURL = 'https://cyber-city-api.herokuapp.com/getComic/';
     const param = useParams().num;
     if(param){
-         xkcdURL = 'http://localhost:8080/getComic/' + param;
+         xkcdURL = 'https://cyber-city-api.herokuapp.com/getComic/' + param;
     }
     const {comic, error} = useXkcdApi(xkcdURL);
     if(comic){
@@ -15,7 +15,7 @@ const ComicStrip = () => {
         const latestComic = 2475;
 
         const previousComic = () => {  
-            let prevComic = 'http://localhost:3000/'; 
+            let prevComic = 'https://cyber-city-app.herokuapp.com/'; 
             if(currentNum === 1){
                 currentNum = latestComic;
                 prevComic += currentNum; 
@@ -26,7 +26,7 @@ const ComicStrip = () => {
         }
         
         const nextComic = () => {  
-            let nextComic = 'http://localhost:3000/'; 
+            let nextComic = 'https://cyber-city-app.herokuapp.com/'; 
             if(currentNum === latestComic){
                 currentNum = 1;
                 nextComic += currentNum; 
@@ -37,12 +37,19 @@ const ComicStrip = () => {
         }
         
         const randomComic = () => {  
-            let randComic = 'http://localhost:3000/';
+            let randComic = 'https://cyber-city-app.herokuapp.com/';
             const randomNum = Math.floor(Math.random() * latestComic) + 1;
             randComic += randomNum; 
 
             window.location.replace(randComic);  
         }
+
+        let transcript = comic.transcript;
+        transcript = transcript.replace(/\[/g, '');
+        transcript = transcript.replace(/\]/g, '');
+        transcript = transcript.replace(/\{/g, '');
+        transcript = transcript.replace(/\}/g, '');
+        transcript = transcript.split('Alt');
     
         return (
             <div>
@@ -53,6 +60,8 @@ const ComicStrip = () => {
                 <h1>{comic.title}</h1>
                 <h3>Created on(d/m/y): {comic.day}/{comic.month}/{comic.year}</h3>
                 <img className='img' alt={comic.alt} src={comic.img}></img>
+                <p>Transcript: {transcript[0]}</p>
+                <p>Alt {transcript[1]}</p>
             </div>
         )
     }
