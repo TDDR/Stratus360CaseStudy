@@ -4,6 +4,7 @@ import useXkcdApi from './ApiHook';
 import './style.css'
 
 const ComicStrip = () => {
+
     /**Setup url to make api call with */
     let xkcdURL = 'https://cyber-city-api.herokuapp.com/getComic/';
     const param = useParams().num;
