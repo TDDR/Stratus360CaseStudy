@@ -4,16 +4,21 @@ import useXkcdApi from './ApiHook';
 import './style.css'
 
 const ComicStrip = () => {
+
+    /**Setup url to make api call with */
     let xkcdURL = 'https://cyber-city-api.herokuapp.com/getComic/';
     const param = useParams().num;
     if(param){
          xkcdURL = 'https://cyber-city-api.herokuapp.com/getComic/' + param;
     }
+
+    /**Use Custom Hook */
     const {comic, error} = useXkcdApi(xkcdURL);
     if(comic){
         let currentNum = comic.num;
         const latestComic = 2475;
 
+        /**Button Handlers */
         const previousComic = () => {  
             let prevComic = 'https://cyber-city-app.herokuapp.com/'; 
             if(currentNum === 1){
@@ -44,6 +49,7 @@ const ComicStrip = () => {
             window.location.replace(randComic);  
         }
 
+        /**Cleaning up the transcript */
         let transcript = comic.transcript;
         transcript = transcript.replace(/\[/g, '');
         transcript = transcript.replace(/\]/g, '');
